@@ -188,6 +188,7 @@ class BrightCoveVideoCloud {
 
     wp_enqueue_script('jquery');
     wp_enqueue_script('jquery-ui');
+    wp_enqueue_script('jquery-ui-tabs');
 
   	wp_deregister_style('jqueryStyle'); 
   	$varjs = plugins_url('jquery-ui.css',BCVC_FILTER_FILE);
