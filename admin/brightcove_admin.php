@@ -16,7 +16,7 @@ function brightcove_settings_notice() {
 }
 
 add_action('admin_menu', 'brightcove_menu');
-add_action( 'admin_init', 'register_brightcove_settings' );
+add_action('admin_init', 'register_brightcove_settings' );
 
 function brightcove_menu() {
   wp_deregister_script( 'brightcove_admin_script' );

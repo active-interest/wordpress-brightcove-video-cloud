@@ -19,7 +19,9 @@ if(!defined( 'BCVC_CPT' )) define( 'BCVC_CPT', 'boat-review' );
 if(!defined( 'BCVC_FILTER_FILE' )) define( 'BCVC_FILTER_FILE', __FILE__);
 if(!defined( 'BCVC_PLUGIN_PATH' )) define( 'BCVC_PLUGIN_PATH', dirname( __FILE__ ) );
 
-require 'admin/brightcove_admin.php';
+if(is_admin()) {
+  require 'admin/brightcove_admin.php';
+}
 
 new BrightCoveVideoCloud;
 
@@ -158,6 +160,12 @@ class BrightCoveVideoCloud {
 
   //Adds all the scripts nessesary for plugin to work
   public function add_all_scripts() {
+    wp_enqueue_script('jquery-ui');
+    wp_enqueue_script('jquery-ui-tabs');
+
+    wp_register_style( 'brightcove-jquery-ui', plugins_url('jquery-ui.css', BCVC_FILTER_FILE), null, BCVC_VERSION_NUM, 'screen');
+    wp_enqueue_style( 'brightcove-jquery-ui');
+
   	$this->add_bcove_scripts(); 
   	$this->add_jquery_scripts();
   	$this->add_validation_scripts();
@@ -187,13 +195,6 @@ class BrightCoveVideoCloud {
     */
 
     wp_enqueue_script('jquery');
-    wp_enqueue_script('jquery-ui');
-    wp_enqueue_script('jquery-ui-tabs');
-
-  	wp_deregister_style('jqueryStyle'); 
-  	$varjs = plugins_url('jquery-ui.css',BCVC_FILTER_FILE);
-  	wp_register_script( 'jqueryStyle', $varjs);
-  	wp_enqueue_style( 'jqueryStyle');
   }
 
   public function add_validation_scripts() {
