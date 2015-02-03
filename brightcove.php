@@ -251,7 +251,6 @@ class BrightCoveVideoCloud {
 						<span class=;alignleft;>
 							<label for=bcPlaylistKey'>Playlist Key</label>
 						</span>
-						<span class='alignright'></span>
 					</th>
 					<td>
 						<input class='player-data' type='text' name='bcPlaylistKey' id='bc-player-playlist-key' placeholder='Default is $playerKey ' />
@@ -271,22 +270,20 @@ class BrightCoveVideoCloud {
   					<span class='alignleft'>
 							<label for='bcPlayer'>Player ID:</label>
 						</span>
-						<span class='alignright'></span>
 					</th>
 					<td>
-						<input class='digits player-data' type='text' name='bcPlayer' id='bc-player-$setting ?>' placeholder='Default ID is $player'/>
+						<input class='digits player-data' type='text' name='bcPlayer' id='bc-player' placeholder='Default ID is $player'/>
 					</td>
 				</tr>";
   	}
   	?>
   	<form class='<?php echo $class;?>' id='<?php echo $id; ?>'>
-      <table>
+      <table style="margin-bottom: 12px;">
         <tbody>
         <?php echo $playerHTML; ?>
         <tr class='bc-width-row'>
           <th valign='top' scope='row' class='label'>
             <span class="alignleft"><label for="bcWidth">Width:</label></span>
-            <span class="alignright"></span>
           </th>
           <td>
            <input class='digits player-data' type='text' name='bcWidth' id='bc-width<?php echo $setting; ?>' placeholder='Default is <?php echo $width; ?> px' />
@@ -295,10 +292,17 @@ class BrightCoveVideoCloud {
         <tr class='bc-height-row'>
           <th valign='top' scope='row' class='label'>
             <span class="alignleft"><label for="bcHeight">Height:</label></span>
-            <span class="alignright"></span>
           </th>
           <td>
            <input class='digits player-data'  type='text' name='bcHeight' id='bc-height<?php echo $setting; ?>' placeholder='Default is <?php echo $height; ?> px' />
+          </td>
+        </tr>
+        <tr class='bc-height-row'>
+          <th valign='top' scope='row' class='label'>
+            <span class="alignleft"><label for="bcHeight">Set Featured?</label></span>
+          </th>
+          <td>
+           <input class='digits player-data'  type='checkbox' name='bcFeatured' id='bc-featured' checked="checked" />
           </td>
         </tr>
         </tbody>
@@ -325,13 +329,11 @@ class BrightCoveVideoCloud {
         <tbody>
           <tr>
             <td>
-				<div class='alignleft'>
-					<h4 id='bc-title-<?php echo $otherClass; ?>' class='bc-title'></h4>
-					<p id='bc-description-<?php echo $otherClass; ?>' class='bc-description'></p>
-					<div id="<?php echo $id; ?>"></div>
-				</div>
-				<div class='alignleft'>
-				</div>
+      				<div class='alignleft'>
+      					<h4 id='bc-title-<?php echo $otherClass; ?>' class='bc-title'></h4>
+      					<p id='bc-description-<?php echo $otherClass; ?>' class='bc-description'></p>
+      					<div id="<?php echo $id; ?>"></div>
+      				</div>
             </td>
           </tr>
         </tbody>
@@ -365,7 +367,6 @@ class BrightCoveVideoCloud {
 	                <tr>
 	                  <th valign='top' scope='row' class='label'>
 	                    <span class="alignleft"><label for="bc-video">Video:</label></span>
-	                    <span class="alignright"></span>
 	                  </th>
 	                  <td>
 	                    <input class='id-field player-data' placeholder='Video ID' aria-required="true" type='text' name='bcVideo' id='bc-video' placeholder='Video ID or URL'>
@@ -392,7 +393,6 @@ class BrightCoveVideoCloud {
 	                <tr>
 	                  <th valign='top' scope='row' class='label' >
 	                    <span class="alignleft"><label for="bcPlaylist">Playlist:</label></span>
-	                    <span class="alignright"></span>
 	                  </th>
 	                  <td>
 	                   <input class='id-field player-data' type='text' name='bcPlaylist' id='bc-playlist' placeholder='Playlist ID(s) separated by commas or spaces' />
