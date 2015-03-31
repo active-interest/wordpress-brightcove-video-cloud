@@ -187,15 +187,17 @@ updateTab =function (typeOfPlayer) {
 }
 
 insertShortcode = function(typeOfPlayer) {
- var shortcode;
-    if (typeOfPlayer == 'video') {
-      shortcode = '[brightcove videoID='+playerDataPlayer.videoID+' playerID='+playerDataPlayer.playerID+' height='+playerDataPlayer.height+' width='+playerDataPlayer.width+']';
-    } else if (typeOfPlayer == 'playlist') {
-      shortcode = '[brightcove playlistID='+playerDataPlaylist.playlistID+' playerKey='+playerDataPlaylist.playerKey +' height='+playerDataPlaylist.height+' width='+playerDataPlaylist.width+']';
-    }	
-    	var win = window.dialogArguments || opener || parent || top;
-    	win.send_to_editor(shortcode);
-    }
+  var shortcode;
+  featured = $('#bc-featured').is(':checked');
+  console.log('featured', featured, playerDataPlayer);
+  if (typeOfPlayer == 'video') {
+    shortcode = '[brightcove videoID='+playerDataPlayer.videoID+' playerID='+playerDataPlayer.playerID+' height='+playerDataPlayer.height+' width='+playerDataPlayer.width+' '+(featured?'featured=true':'')+']';
+  } else if (typeOfPlayer == 'playlist') {
+    shortcode = '[brightcove playlistID='+playerDataPlaylist.playlistID+' playerKey='+playerDataPlaylist.playerKey +' height='+playerDataPlaylist.height+' width='+playerDataPlaylist.width+']';
+  }	
+	var win = window.dialogArguments || opener || parent || top;
+	win.send_to_editor(shortcode);
+}
     
 hideSettings = function (typeOfPlayer) {
 	if (typeOfPlayer == 'playlist') {
@@ -260,7 +262,7 @@ seeAllPlaylists = function(pageNumber) {
 	clearPlayerData('playlist');
 	if (pageNumber == 0) {
 		$('#bc-video-search-playlist').addClass('disable');
-		$('#bc-video-search-playlist').prepend("<img class='loading-img-api' src='/wp-includes/js/tinymce/themes/advanced/skins/default/img/progress.gif' />");
+		$('#bc-video-search-playlist').prepend("<img class='loading-img-api' src='/wp-content/plugins/wordpress-brightcove-video-cloud/images/loader.gif' />");
 	}    
     token = $('#bc-api-key').val();
     /*Create URL that is called to search for videos*/
@@ -429,7 +431,7 @@ getAllVideos = function (pageNumber)
 	clearPlayerData('video');
 	if (pageNumber == 0) {
 		$('#bc-video-search-video').addClass('disable');
-		$('#bc-video-search-video').prepend("<img class='loading-img-api' src='/wp-includes/js/tinymce/themes/advanced/skins/default/img/progress.gif' />");
+		$('#bc-video-search-video').prepend("<img class='loading-img-api' src='/wp-content/plugins/wordpress-brightcove-video-cloud/images/loader.gif' />");
 	}    
     token = $('#bc-api-key').val();
     /*Create URL that is called to search for videos*/
@@ -521,7 +523,7 @@ searchForVideos = function (pageNumber) {
 
 	$('#bc-video-search-video').addClass('disable');    
 	if (pageNumber == 0) {
-    	$('#bc-video-search-video').prepend("<img class='loading-img-api' src='/wp-includes/js/tinymce/themes/advanced/skins/default/img/progress.gif' />");
+    	$('#bc-video-search-video').prepend("<img class='loading-img-api' src='/wp-content/plugins/wordpress-brightcove-video-cloud/images/loader.gif' />");
     }
     token = $('#bc-api-key').val();
     /*Create URL that is called to search for videos*/
@@ -561,7 +563,7 @@ videoResults = function (pResponse) {
 			currentVid = imgSrc ? "<td><img class='pinkynail toggle' src='"+pResponse.items[pVideo].thumbnailURL+"'/></td>" : '<td class="no-thumbnail"></td>';
 
 			//Name
-			currentName="<td class='title'>"+constrain(pResponse.items[pVideo].name,25)+"</td>";
+			currentName="<td class='title'>"+pResponse.items[pVideo].name+"</td>";
 		    
 		 	//Duration
 		 	lengthMin = Math.floor(pResponse.items[pVideo].length/60000);
