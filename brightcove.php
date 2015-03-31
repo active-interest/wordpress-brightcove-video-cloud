@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Brightcove Video Cloud for WordPress
- * @version 2.0
+ * @version 2.0.1
  */
 /*
 Plugin Name: Brightcove Video Cloud for WordPress
@@ -18,6 +18,7 @@ if(!defined( 'BCVC_NAME' )) define( 'BCVC_NAME', basename(__FILE__, '.php') );
 if(!defined( 'BCVC_CPT' )) define( 'BCVC_CPT', 'boat-review' );
 if(!defined( 'BCVC_FILTER_FILE' )) define( 'BCVC_FILTER_FILE', __FILE__);
 if(!defined( 'BCVC_PLUGIN_PATH' )) define( 'BCVC_PLUGIN_PATH', dirname( __FILE__ ) );
+if(!defined( 'BCVC_SHORTCODE' )) define( 'BCVC_SHORTCODE', 'brightcove' );
 
 if(is_admin()) {
   require 'admin/brightcove_admin.php';
@@ -31,7 +32,7 @@ class BrightCoveVideoCloud {
 
   public function __construct() {
     add_action('init', array($this, 'init'));
-    add_shortcode('brightcove', array($this, 'shortcode'));
+    add_shortcode(BCVC_SHORTCODE, array($this, 'shortcode'));
   }
 
   public function configure() {
@@ -475,6 +476,13 @@ class BrightCoveVideoCloud {
     $html='';
     $width=0;
     $height=0;
+    $featured=true;
+
+    if(isset($atts['featured'])) {
+      $featured = $atts['featured'];
+    } else {
+      $featured = get_option('bc_default_featured', $featured);
+    }
 
     if (isset($atts['width'])) { 
       $width = $atts['width'];
