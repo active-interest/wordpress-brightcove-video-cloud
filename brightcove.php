@@ -345,7 +345,7 @@ class BrightCoveVideoCloud {
 
   public function bc_media_upload_form () {
 	 media_upload_header();
-	 add_all_scripts();
+	 $this->add_all_scripts();
   ?>
   <div class="bc-container">
   	<?php
@@ -415,12 +415,12 @@ class BrightCoveVideoCloud {
 	    <div id='bc-error' class='hidden error'>An error has occured, please check to make sure that you have a valid video or playlist ID</div>
       <?php
       //TODO pass in map of defaults
-    	add_player_settings('video', 'Insert Shortcode');
+    	$this->add_player_settings('video', 'Insert Shortcode');
       ?> 
       <?php
-    	add_preview_area('video');
-    	add_player_settings('playlist', 'Insert Shortcode');
-    	add_preview_area('playlist');
+    	$this->add_preview_area('video');
+    	$this->add_player_settings('playlist', 'Insert Shortcode');
+    	$this->add_preview_area('playlist');
     ?>
     </div> 
     <?php	
