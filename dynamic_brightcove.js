@@ -563,7 +563,7 @@ videoResults = function (pResponse) {
 			currentVid = imgSrc ? "<td><img class='pinkynail toggle' src='"+pResponse.items[pVideo].thumbnailURL+"'/></td>" : '<td class="no-thumbnail"></td>';
 
 			//Name
-			currentName="<td class='title'>"+constrain(pResponse.items[pVideo].name,25)+"</td>";
+			currentName="<td class='title'>"+pResponse.items[pVideo].name+"</td>";
 		    
 		 	//Duration
 		 	lengthMin = Math.floor(pResponse.items[pVideo].length/60000);
