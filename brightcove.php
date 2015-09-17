@@ -121,11 +121,13 @@ class BrightCoveVideoCloud {
 
   public function init() {
     $this->configure();
-    add_action('wp_enqueue_scripts', array($this, 'add_all_scripts'));
-    add_action('wp_enqueue_scripts', array($this, 'add_all_admin_scripts'));
-    add_filter('media_upload_tabs', array($this, 'media_menu'));
-    add_action('media_upload_brightcove', array($this, 'menu_handle'));
-    add_action('media_upload_brightcove_api', array($this, 'brightcove_api_menu_handle'));
+    if(is_admin()) {
+      add_action('wp_enqueue_scripts', array($this, 'add_all_scripts'));
+      add_action('wp_enqueue_scripts', array($this, 'add_all_admin_scripts'));
+      add_filter('media_upload_tabs', array($this, 'media_menu'));
+      add_action('media_upload_brightcove', array($this, 'menu_handle'));
+      add_action('media_upload_brightcove_api', array($this, 'brightcove_api_menu_handle'));
+    }
   }
 
   /************************Upload Media Tab ***************************/
