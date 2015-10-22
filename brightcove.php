@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Brightcove Video Cloud for WordPress
- * @version 2.0.1
+ * @version 2.0.2
  */
 /*
 Plugin Name: Brightcove Video Cloud for WordPress
@@ -13,7 +13,7 @@ Author URI: http://github.com/active-interest/
 */
 
 if(!defined( 'ABSPATH' ))  die(); // We should not be loading this outside of wordpress
-if(!defined( 'BCVC_VERSION_NUM' )) define( 'BCVC_VERSION_NUM', '0.1.1' );
+if(!defined( 'BCVC_VERSION_NUM' )) define( 'BCVC_VERSION_NUM', '2.0.2' );
 if(!defined( 'BCVC_NAME' )) define( 'BCVC_NAME', basename(__FILE__, '.php') );
 if(!defined( 'BCVC_CPT' )) define( 'BCVC_CPT', 'boat-review' );
 if(!defined( 'BCVC_FILTER_FILE' )) define( 'BCVC_FILTER_FILE', __FILE__);
@@ -147,7 +147,7 @@ class BrightCoveVideoCloud {
   public function add_all_admin_scripts(){
   	wp_enqueue_script('media-upload');
   	$brightcoveStyleUrl = plugins_url('brightcove.css', BCVC_FILTER_FILE);
-  	wp_register_style('brightcoveStyleSheets', $brightcoveStyleUrl);
+  	wp_register_style('brightcoveStyleSheets', $brightcoveStyleUrl, null, BCVC_VERSION_NUM);
   	wp_enqueue_style( 'brightcoveStyleSheets');
   }
 
@@ -204,17 +204,17 @@ class BrightCoveVideoCloud {
   public function add_validation_scripts() {
   	wp_deregister_script('jqueryPlaceholder');
   	$varjp = plugins_url('jQueryPlaceholder/jQueryPlaceholder.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'jqueryPlaceholder', $varjp, 'jquery');
+  	wp_register_script( 'jqueryPlaceholder', $varjp, 'jquery', BCVC_VERSION_NUM);
   	wp_enqueue_script( 'jqueryPlaceholder');
 
   	wp_deregister_script('jquery-validate');
   	$varjv = plugins_url('jQueryValidation/jquery.validate.min.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'jquery-validate', $varjv, 'jquery');
+  	wp_register_script( 'jquery-validate', $varjv, 'jquery', BCVC_VERSION_NUM);
   	wp_enqueue_script( 'jquery-validate' );
 
   	wp_deregister_script('jquery-validate-additional');
   	$varjva = plugins_url('jQueryValidation/additional-methods.min.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'jquery-validate-additional', $varjva, 'jquery');
+  	wp_register_script( 'jquery-validate-additional', $varjva, 'jquery', BCVC_VERSION_NUM);
   	wp_enqueue_script( 'jquery-validate-additional' );
   }
 
@@ -222,7 +222,7 @@ class BrightCoveVideoCloud {
   public function add_dynamic_brightcove_api_script() {	
   	wp_deregister_script( 'dynamic_brightcove_script' );
   	$vardbas = plugins_url('dynamic_brightcove.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'dynamic_brightcove_script', $vardbas);
+  	wp_register_script( 'dynamic_brightcove_script', $vardbas, 'jquery', BCVC_VERSION_NUM);
   	wp_enqueue_script( 'dynamic_brightcove_script' );
   }
 
