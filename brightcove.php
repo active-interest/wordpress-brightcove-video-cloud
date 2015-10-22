@@ -121,6 +121,7 @@ class BrightCoveVideoCloud {
 
   public function init() {
     $this->configure();
+    add_action('wp_enqueue_scripts', array($this, 'add_bcove_scripts'));
     if(is_admin()) {
       add_action('wp_enqueue_scripts', array($this, 'add_all_scripts'));
       add_action('wp_enqueue_scripts', array($this, 'add_all_admin_scripts'));
@@ -169,16 +170,16 @@ class BrightCoveVideoCloud {
     wp_register_style( 'brightcove-jquery-ui', plugins_url('jquery-ui.css', BCVC_FILTER_FILE), null, BCVC_VERSION_NUM, 'screen');
     wp_enqueue_style( 'brightcove-jquery-ui');
 
-  	$this->add_bcove_scripts(); 
-  	$this->add_jquery_scripts();
+  	//$this->add_bcove_scripts(); 
+  	//$this->add_jquery_scripts();
   	$this->add_validation_scripts();
   	$this->add_dynamic_brightcove_api_script();
   }
 
   public function add_bcove_scripts() {	
-  	wp_deregister_script( 'bcove-script' );
+  	wp_deregister_script('bcove-script');
   	$varbsbs = plugins_url('brightcove-experience.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'bcove-script', $varbsbs);
+  	wp_register_script( 'bcove-script', $varbsbs, 'jquery', BCVC_VERSION_NUM);
   	wp_enqueue_script( 'bcove-script' );
   }
 
@@ -197,23 +198,23 @@ class BrightCoveVideoCloud {
   	wp_enqueue_script( 'bcove-jquery-ui-core' );
     */
 
-    wp_enqueue_script('jquery');
+    //wp_enqueue_script('jquery');
   }
 
   public function add_validation_scripts() {
   	wp_deregister_script('jqueryPlaceholder');
   	$varjp = plugins_url('jQueryPlaceholder/jQueryPlaceholder.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'jqueryPlaceholder', $varjp);
+  	wp_register_script( 'jqueryPlaceholder', $varjp, 'jquery');
   	wp_enqueue_script( 'jqueryPlaceholder');
 
   	wp_deregister_script('jquery-validate');
   	$varjv = plugins_url('jQueryValidation/jquery.validate.min.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'jquery-validate', $varjv);
+  	wp_register_script( 'jquery-validate', $varjv, 'jquery');
   	wp_enqueue_script( 'jquery-validate' );
 
   	wp_deregister_script('jquery-validate-additional');
   	$varjva = plugins_url('jQueryValidation/additional-methods.min.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'jquery-validate-additional', $varjva);
+  	wp_register_script( 'jquery-validate-additional', $varjva, 'jquery');
   	wp_enqueue_script( 'jquery-validate-additional' );
   }
 
@@ -512,11 +513,13 @@ class BrightCoveVideoCloud {
           <param name="height"  value="'. $height .'" />';
           
     if (isset($atts['playerid'])) {   
-        $html = $html . '<param name="playerID" value="'.$atts['playerid'].'" />';
+      $html .= '<param name="playerID" value="'.$atts['playerid'].'" />';
+    } else {
+      $html .= '<param name="playerID" value="'.static::$options['playerID'].'" />';
     }
 
     if (isset($atts['playerkey'])) {   
-        $html = $html . '<param name="playerKey" value="'.$atts['playerkey'].'"/>';
+      $html .= '<param name="playerKey" value="'.$atts['playerkey'].'"/>';
     }
     $html = $html .' <param name="isVid" value="true" />
             <param name="isUI" value="true" />
