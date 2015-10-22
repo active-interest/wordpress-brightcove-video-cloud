@@ -34,7 +34,6 @@ class BrightCoveVideoCloudAdmin {
           && in_array( BCVC_SHORTCODE, $matches[2] ) )
       {
           // shortcode is being used
-        echo '<pre>matches = '; var_dump($matches); echo '</pre>';
         $params = explode(' ', $matches[3][0]);
         $options = array();
         foreach($params as $param) {
@@ -43,7 +42,6 @@ class BrightCoveVideoCloudAdmin {
             $options[$k] = $v;
           }
         }
-        echo '<pre>params = '; var_dump($params); echo '</pre>';
         if(!empty($options['featured']) && $options['featured']) {
           //if(empty($options['video_id'])) return $post_id;
           // //api.brightcove.com/services/library?command=find_video_by_id&video_id=2790007957001&video_fields=id%2Cname%2CshortDescription%2ClinkURL%2ClinkText%2Ctags%2CvideoStillURL%2CvideoStill%2CthumbnailURL%2Cthumbnail&media_delivery=default&callback=BCL.onSearchResponse&token=ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw..

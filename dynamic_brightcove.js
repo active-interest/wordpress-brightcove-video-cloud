@@ -60,7 +60,6 @@ setPlayerDataExpress = function (typeOfPlayer) {
 }
 
 getVideoID = function (typeOfPlayer) {
-	
 	if (typeOfPlayer == 'video') {
 		playerDataPlayer.videoID = $('#bc-video').val();
 	} else if (typeOfPlayer == 'playlist') {;
@@ -189,11 +188,32 @@ updateTab =function (typeOfPlayer) {
 insertShortcode = function(typeOfPlayer) {
   var shortcode;
   featured = $('#bc-featured').is(':checked');
-  console.log('featured', featured, playerDataPlayer);
+  console.error('insertShortcode', featured, playerDataPlayer);
   if (typeOfPlayer == 'video') {
-    shortcode = '[brightcove videoID='+playerDataPlayer.videoID+' playerID='+playerDataPlayer.playerID+' height='+playerDataPlayer.height+' width='+playerDataPlayer.width+' '+(featured?'featured=true':'')+']';
+    shortcode = '[brightcove videoID='+playerDataPlayer.videoID;
+    if(playerDataPlayer.playerID != getDefaultPlayerID()) {
+      shortcode += ' playerID='+playerDataPlayer.playerID;
+    }
+    if(playerDataPlayer.height != getDefaultHeight()) {
+      shortcode += ' height='+playerDataPlayer.height;
+    }
+    if(playerDataPlayer.width != getDefaultWidth()) {
+      shortcode += ' width='+playerDataPlayer.width;
+    }
+    shortcode += (featured?' featured=true':'');
+    shortcode += ']';
   } else if (typeOfPlayer == 'playlist') {
-    shortcode = '[brightcove playlistID='+playerDataPlaylist.playlistID+' playerKey='+playerDataPlaylist.playerKey +' height='+playerDataPlaylist.height+' width='+playerDataPlaylist.width+']';
+    shortcode = '[brightcove playlistID='+playerDataPlaylist.playlistID;
+    if(playerDataPlaylist.playerKey != getDefaultPlayerKeyPlaylist()) {
+      shortcode += ' playerKey='+playerDataPlaylist.playerKey;
+    }
+    if(playerDataPlaylist.height != getDefaultHeightPlaylist()) {
+      shortcode += ' height='+playerDataPlaylist.height;
+    }
+    if(playerDataPlaylist.width != getDefaultWidthPlaylist()) {
+      shortcode += ' width='+playerDataPlaylist.width;
+    }
+    shortcode += ']';
   }	
 	var win = window.dialogArguments || opener || parent || top;
 	win.send_to_editor(shortcode);
@@ -216,6 +236,7 @@ showSettings = function (typeOfPlayer) {
 }
 
 clearPlayerData = function (typeOfPlayer) {
+  console.error('clearPlayerData', typeOfPlayer);
 	if (typeOfPlayer == 'playlist') {
 		playerDataPlaylist = {
 		    "playerID" : "",
@@ -243,7 +264,7 @@ formatDate = function (date) {
 }
 
 setPlayerDataMediaAPI = function (typeOfPlayer, videoID) {
-
+  console.error('setPlayerDataMediaAPI', typeOfPlayer, videoID);
 	if (typeOfPlayer == 'playlist') {
 		playerDataPlaylist.playlistID = videoID;
 	} else {
@@ -252,6 +273,7 @@ setPlayerDataMediaAPI = function (typeOfPlayer, videoID) {
 	changeHeight(typeOfPlayer);
 	changeWidth(typeOfPlayer);
 	changePlayerID(typeOfPlayer);
+  console.log('playerDataPlayer', playerDataPlayer);
 
 }
 
@@ -259,7 +281,7 @@ setPlayerDataMediaAPI = function (typeOfPlayer, videoID) {
 
 seeAllPlaylists = function(pageNumber) {
 
-	clearPlayerData('playlist');
+	//clearPlayerData('playlist');
 	if (pageNumber == 0) {
 		$('#bc-video-search-playlist').addClass('disable');
 		$('#bc-video-search-playlist').prepend("<img class='loading-img-api' src='/wp-content/plugins/wordpress-brightcove-video-cloud/images/loader.gif' />");
@@ -428,7 +450,7 @@ generateHTMLForPlaylist = function () {
 
 getAllVideos = function (pageNumber)
 {
-	clearPlayerData('video');
+	//clearPlayerData('video');
 	if (pageNumber == 0) {
 		$('#bc-video-search-video').addClass('disable');
 		$('#bc-video-search-video').prepend("<img class='loading-img-api' src='/wp-content/plugins/wordpress-brightcove-video-cloud/images/loader.gif' />");
@@ -517,9 +539,9 @@ showPage = function (pageNumber,videoOrPlaylist) {
 }
 
 searchForVideos = function (pageNumber) {
-	clearPlayerData('video');
-    searchParams = $.trim($('#bc-search-field').val());
-    if (!searchParams) return;
+	//clearPlayerData('video');
+  searchParams = $.trim($('#bc-search-field').val());
+  if (!searchParams) return;
 
 	$('#bc-video-search-video').addClass('disable');    
 	if (pageNumber == 0) {
