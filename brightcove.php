@@ -414,6 +414,7 @@ class BrightCoveVideoCloud {
 
   public function bc_media_api_upload_form () {
   	media_upload_header();
+    $this->add_bcove_scripts();
   	$this->add_all_scripts();
   	$this->add_mapi_script();
   	$apiKey = get_option('bc_api_key');
