@@ -124,7 +124,6 @@ class BrightCoveVideoCloud {
     add_action('wp_enqueue_scripts', array($this, 'add_bcove_scripts'));
     if(is_admin()) {
       add_action('wp_enqueue_scripts', array($this, 'add_all_scripts'));
-      add_action('wp_enqueue_scripts', array($this, 'add_all_admin_scripts'));
       add_filter('media_upload_tabs', array($this, 'media_menu'));
       add_action('media_upload_brightcove', array($this, 'menu_handle'));
       add_action('media_upload_brightcove_api', array($this, 'brightcove_api_menu_handle'));
@@ -144,13 +143,6 @@ class BrightCoveVideoCloud {
   }
 
 
-  public function add_all_admin_scripts(){
-  	wp_enqueue_script('media-upload');
-  	$brightcoveStyleUrl = plugins_url('brightcove.css', BCVC_FILTER_FILE);
-  	wp_register_style('brightcoveStyleSheets', $brightcoveStyleUrl, null, BCVC_VERSION_NUM);
-  	wp_enqueue_style( 'brightcoveStyleSheets');
-  }
-
   public function menu_handle() {
   	//TODO check to see what $errors is being used for
   	//TODO check to see if parameters can be passed in here
@@ -164,41 +156,26 @@ class BrightCoveVideoCloud {
 
   //Adds all the scripts nessesary for plugin to work
   public function add_all_scripts() {
+    wp_enqueue_script('media-upload');
+    $brightcoveStyleUrl = plugins_url('brightcove.css', BCVC_FILTER_FILE);
+    wp_register_style('brightcoveStyleSheets', $brightcoveStyleUrl, null, BCVC_VERSION_NUM);
+    wp_enqueue_style( 'brightcoveStyleSheets');
+
     wp_enqueue_script('jquery-ui');
     wp_enqueue_script('jquery-ui-tabs');
 
     wp_register_style( 'brightcove-jquery-ui', plugins_url('jquery-ui.css', BCVC_FILTER_FILE), null, BCVC_VERSION_NUM, 'screen');
     wp_enqueue_style( 'brightcove-jquery-ui');
 
-  	//$this->add_bcove_scripts(); 
-  	//$this->add_jquery_scripts();
   	$this->add_validation_scripts();
   	$this->add_dynamic_brightcove_api_script();
   }
 
   public function add_bcove_scripts() {	
-  	wp_deregister_script('bcove-script');
+  	wp_deregister_script('brightcove-experience');
   	$varbsbs = plugins_url('brightcove-experience.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'bcove-script', $varbsbs, 'jquery', BCVC_VERSION_NUM);
-  	wp_enqueue_script( 'bcove-script' );
-  }
-
-  public function add_jquery_scripts() {
-    /*
-  	wp_deregister_script('bcove-jquery');
-  	$varbj = plugins_url('jquery.min.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'bcove-jquery', $varbj);
-  	wp_enqueue_script( 'bcove-jquery' );
-    */
-
-    /*
-  	wp_deregister_script('bcove-jquery-ui-core');
-  	$varbjuc = plugins_url('jquery-ui.min.js',BCVC_FILTER_FILE);
-  	wp_register_script( 'bcove-jquery-ui-core', $varbjuc);
-  	wp_enqueue_script( 'bcove-jquery-ui-core' );
-    */
-
-    //wp_enqueue_script('jquery');
+  	wp_register_script( 'brightcove-experience', $varbsbs, 'jquery', BCVC_VERSION_NUM);
+  	wp_enqueue_script( 'brightcove-experience' );
   }
 
   public function add_validation_scripts() {

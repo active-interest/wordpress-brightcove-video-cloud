@@ -188,7 +188,6 @@ updateTab =function (typeOfPlayer) {
 insertShortcode = function(typeOfPlayer) {
   var shortcode;
   featured = $('#bc-featured').is(':checked');
-  console.error('insertShortcode', featured, playerDataPlayer);
   if (typeOfPlayer == 'video') {
     shortcode = '[brightcove videoID='+playerDataPlayer.videoID;
     if(playerDataPlayer.playerID != getDefaultPlayerID()) {
@@ -236,7 +235,6 @@ showSettings = function (typeOfPlayer) {
 }
 
 clearPlayerData = function (typeOfPlayer) {
-  console.error('clearPlayerData', typeOfPlayer);
 	if (typeOfPlayer == 'playlist') {
 		playerDataPlaylist = {
 		    "playerID" : "",
@@ -264,7 +262,6 @@ formatDate = function (date) {
 }
 
 setPlayerDataMediaAPI = function (typeOfPlayer, videoID) {
-  console.error('setPlayerDataMediaAPI', typeOfPlayer, videoID);
 	if (typeOfPlayer == 'playlist') {
 		playerDataPlaylist.playlistID = videoID;
 	} else {
@@ -273,8 +270,6 @@ setPlayerDataMediaAPI = function (typeOfPlayer, videoID) {
 	changeHeight(typeOfPlayer);
 	changeWidth(typeOfPlayer);
 	changePlayerID(typeOfPlayer);
-  console.log('playerDataPlayer', playerDataPlayer);
-
 }
 
 /////////////////////// Playlists /////////////////////////
